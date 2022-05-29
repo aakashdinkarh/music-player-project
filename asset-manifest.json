@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/music-player-project/static/js/main.ed0e3cfe.js",
+    "main.js": "/music-player-project/static/js/main.6c92ad69.js",
     "static/js/787.ded37e57.chunk.js": "/music-player-project/static/js/787.ded37e57.chunk.js",
     "index.html": "/music-player-project/index.html",
-    "main.ed0e3cfe.js.map": "/music-player-project/static/js/main.ed0e3cfe.js.map",
+    "main.6c92ad69.js.map": "/music-player-project/static/js/main.6c92ad69.js.map",
     "787.ded37e57.chunk.js.map": "/music-player-project/static/js/787.ded37e57.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.ed0e3cfe.js"
+    "static/js/main.6c92ad69.js"
   ]
 }

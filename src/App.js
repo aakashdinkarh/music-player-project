@@ -14,7 +14,7 @@ const App = () => {
   // return <Upload audioInfo={audioInfo} setAudioInfo={setAudioInfo} setAudioSrcs={setAudioSrcs} />
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL} >
       <Routes>
         <Route
           path="/"

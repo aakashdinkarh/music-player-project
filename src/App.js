@@ -11,7 +11,7 @@ const App = () => {
   const [audioSrcs, setAudioSrcs] = useState([]);
   const [audioInfo, setAudioInfo] = useState([]);
 
-  return <div>Hello world</div>
+  return <Upload audioInfo={audioInfo} setAudioInfo={setAudioInfo} setAudioSrcs={setAudioSrcs} />
 
   return (
     <BrowserRouter>

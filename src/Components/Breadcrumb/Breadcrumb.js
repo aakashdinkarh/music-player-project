@@ -15,7 +15,9 @@ const Breadcrumb = ({ breadcrumb_el }) => (
           <span>/</span>
         </span>
       ) : (
-        <span key={ind}>{key}</span>
+        <span key={ind}>
+          <b>{key}</b>
+        </span>
       )
     )}
   </Content>

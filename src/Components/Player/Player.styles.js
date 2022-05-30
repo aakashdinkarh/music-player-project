@@ -15,6 +15,14 @@ export const AudioContent = styled.div`
     overflow: auto;
     height: 50%;
     max-height: 500px;
+    position: relative;
+
+    .currentSong {
+      transform: translateX(-50%);
+      position: absolute;
+      left: 50%;
+      bottom: 0px;
+    }
   }
 `;
 

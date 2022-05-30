@@ -50,6 +50,9 @@ const Player = ({ audioUrls, audioInfo }) => {
                   audioInfo={audioInfo}
                   disabled="true"
                 />
+                <p className="currentSong">
+                  Current Song: {audioInfo[index].name}
+                </p>
               </div>
               <SongInfo>
                 Songs:

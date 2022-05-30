@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-
 import { Link } from "react-router-dom";
+//Components
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
-import { Wrapper, SongInfo, NotFound } from "./Player.styles";
+import Breadcrumb from "../Breadcrumb/Breadcrumb";
+import { Wrapper, Content } from "../Upload/Upload.styles";
+import { AudioContent, SongInfo, NotFound } from "./Player.styles";
 
 const Player = ({ audioUrls, audioInfo }) => {
   const [index, setIndex] = useState(0);
@@ -18,41 +20,59 @@ const Player = ({ audioUrls, audioInfo }) => {
       else return (prev + n + audioUrls.length) % audioUrls.length;
     });
   };
+  const breadcrumb_el = {
+    Home: "/",
+    Player: "/player",
+  };
 
   //return
-  if (!audioUrls.length && !audioInfo.length)
-    return (
-      <NotFound>
-        Something went wrong, <br />
-        <p>
-          No audio found
-          <br />
-          <Link to="/">Click here to go back to choose songs...</Link>
-        </p>
-      </NotFound>
-    );
   return (
-    <Wrapper>
-      <AudioPlayer
-        changeSong={changeSong}
-        audioUrl={audioUrl}
-        audioInfo={audioInfo}
-      />
-      <SongInfo>
-        Songs:
-        <ol>
-          {audioInfo.map((audio, ind) => (
-            <li
-              key={ind}
-              onClick={() => setIndex(ind)}
-              className={ind === index ? "active" : ""}
-            >
-              {audio.name}
-            </li>
-          ))}
-        </ol>
-      </SongInfo>
-    </Wrapper>
+    <>
+      {!audioUrls.length && !audioInfo.length ? (
+        <NotFound>
+          <Breadcrumb breadcrumb_el={breadcrumb_el} />
+          Something went wrong, <br />
+          <p>
+            No audio found
+            <br />
+            <Link to="/">Click here to go back to choose songs...</Link>
+          </p>
+        </NotFound>
+      ) : (
+        <Wrapper>
+          <Breadcrumb breadcrumb_el={breadcrumb_el} />
+          <Content>
+            <AudioContent>
+              <div className="audioOverflow">
+                <AudioPlayer
+                  changeSong={changeSong}
+                  audioUrl={audioUrl}
+                  audioInfo={audioInfo}
+                  disabled="true"
+                />
+              </div>
+              <SongInfo>
+                Songs:
+                <div className="songInfoOverflow">
+                  <ol>
+                    {audioInfo.map((audio, ind) => (
+                      <li
+                        key={ind}
+                        onClick={() => setIndex(ind)}
+                        className={ind === index ? "active" : ""}
+                      >
+                        {audio.name}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </SongInfo>
+            </AudioContent>
+          </Content>
+        </Wrapper>
+      )}
+    </>
   );
 };
+
 export default Player;

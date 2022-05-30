@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { Wrapper, Content, Label, Input } from "./Upload.styles";
+import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
 const Upload = ({ audioInfo, setAudioInfo, setAudioSrcs }) => {
   const fileChange = (e) => {
@@ -22,17 +23,33 @@ const Upload = ({ audioInfo, setAudioInfo, setAudioSrcs }) => {
     }
 
     Object.values(files).map((file) => getAudio(file));
+    e.target.value = null;
+  };
+  //remove song from song list
+  const removeSong = (n) => {
+    if (n === -1) {
+      setAudioInfo([]);
+      setAudioSrcs([]);
+    } else {
+      setAudioInfo((prev) => prev.filter((audio, index) => index !== n));
+      setAudioSrcs((prev) => prev.filter((audio, index) => index !== n));
+    }
+  };
+  //Breadcrumb element
+  const breadcrumb_el = {
+    Home: "/",
   };
 
   return (
     <Wrapper>
+      <Breadcrumb breadcrumb_el={breadcrumb_el} />
       <Content>
         <h2>Welcome!!</h2>
         <p>Click below 'Choose files' button to choose your audio file(s)...</p>
         <div className="audioInput">
           <Label>
             <Input
-              onChange={fileChange}
+              onInput={(e) => fileChange(e)}
               type="file"
               accept=".mp3,audio/*"
               hidden
@@ -46,14 +63,25 @@ const Upload = ({ audioInfo, setAudioInfo, setAudioSrcs }) => {
           Songs choosen :
           <br />
           {audioInfo.length ? (
-            <ol>
-              {audioInfo.map((song, index) => (
-                <li key={index} className="listItem">
-                  <div className="songName">Name : {song.name}</div>
-                  <div className="songSize">Size: {song.size}</div>
-                </li>
-              ))}
-            </ol>
+            <span onClick={() => removeSong(-1)} className="removeAll">
+              Clear All
+            </span>
+          ) : null}
+          {audioInfo.length ? (
+            <div className="overflowContainer">
+              <ol id="chosenSongs">
+                {audioInfo.map((song, index) => (
+                  <li key={index} className="listItem">
+                    <div className="songName">Name : {song.name}</div>
+                    <div className="songSize">Size: {song.size}</div>
+                    <span
+                      className="fa-solid fa-remove"
+                      onClick={() => removeSong(index)}
+                    ></span>
+                  </li>
+                ))}
+              </ol>
+            </div>
           ) : (
             <div style={{ fontStyle: "italic", fontSize: "0.8rem" }}>
               No songs choosen

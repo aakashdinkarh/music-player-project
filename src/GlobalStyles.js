@@ -21,12 +21,30 @@ export const GlobalStyle = createGlobalStyle`
   }
   html, body {
     height: 100%;
-  }
-  body {
     margin: 0;
     padding: 0;
   }
   div#root {
     height: 100%;
+    overflow: auto;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--white);
+    box-shadow: 0 0 5px #aaa inset;
+    border-radius: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border-radius: 5px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  ::-webkit-scrollbar-corner {
+    display: none;
   }
 `;

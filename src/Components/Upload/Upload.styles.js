@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   width: 100%;
   background: var(--darkGrey);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
@@ -14,8 +15,8 @@ export const Content = styled.div`
   width: 95%;
   background-color: var(--medGrey);
   border-radius: 10px;
-  padding-left: 60px;
-  padding-top: 60px;
+  padding: 20px 20px 0 20px;
+  overflow: auto;
   color: var(--white);
   h2 {
     font-size: var(--fontBig);
@@ -50,16 +51,48 @@ export const Content = styled.div`
     border: 1px solid var(--grey);
     border-radius: 5px;
     padding: 5px 10px;
+    position: relative;
+
+    .removeAll {
+      font-weight: bold;
+      font-size: small;
+      background: var(--darkGrey);
+      border-radius: 3px;
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      cursor: pointer;
+      padding: 2px 5px;
+      :hover {
+        color: var(--grey);
+      }
+    }
+    .overflowContainer {
+      background: var(--darkGrey);
+      border-radius: 5px;
+      overflow: auto;
+    }
   }
-  ol {
-    background: var(--darkGrey);
-    border-radius: 5px;
+  ol#chosenSongs {
+    padding: 0 0 5px 30px;
     margin: 5px 0;
+    min-width: 300px;
+    max-height: 250px;
     font-size: 0.9rem;
-    padding: 5px 0 5px 30px;
 
     .listItem {
       margin: 5px 0;
+      position: relative;
+
+      span {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        cursor: pointer;
+        :hover {
+          color: var(--grey);
+        }
+      }
     }
     .songSize {
       font-style: italic;

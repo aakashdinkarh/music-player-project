@@ -1,19 +1,7 @@
 import styled from "styled-components";
 
 export const Content = styled.div`
-  background-color: var(--darkGrey);
-  height: 50%;
-  max-height: 500px;
-  width: 95%;
-  position: relative;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  top: 10%;
-  border-radius: 10px;
-  color: var(--white);
-  font-weight: 600;
+  min-width: 400px;
 
   /* custom design of range input */
   input[type="range"] {
@@ -120,5 +108,3 @@ export const Spinner = styled.div`
     }
   }
 `;
-
-//place volume icon below volume input

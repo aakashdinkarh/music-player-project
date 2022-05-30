@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-
 import { Content, Button } from "./AudioPlayer.styles";
 
 const AudioPlayer = ({ changeSong, audioUrl, audioInfo }) => {
@@ -59,7 +58,7 @@ const AudioPlayer = ({ changeSong, audioUrl, audioInfo }) => {
     <>
       {/* hidden audio player */}
       {Audio}
-      <Content id="content">
+      <Content id="audioPlayer">
         <div className="seekBarInfo">
           <span>{`${Math.floor(currentTime / 60)}:${(
             "0" + Math.floor(currentTime % 60)
@@ -116,3 +115,6 @@ const AudioPlayer = ({ changeSong, audioUrl, audioInfo }) => {
 };
 
 export default AudioPlayer;
+
+//logo
+//make responsive

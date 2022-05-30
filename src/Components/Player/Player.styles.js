@@ -1,20 +1,37 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
-  width: 100%;
+export const AudioContent = styled.div`
   height: 100%;
-  background: var(--grey);
-  position: relative;
+  width: 100%;
+
+  .audioOverflow {
+    background: var(--darkGrey);
+    color: var(--white);
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+    overflow: auto;
+    height: 50%;
+    max-height: 500px;
+  }
 `;
 
 export const SongInfo = styled.div`
-  width: 80%;
+  background-color: var(--white);
+  color: var(--black);
   border-radius: 10px;
   padding: 10px 20px;
-  background-color: var(--white);
   position: relative;
-  top: 15%;
-  margin: auto;
+  margin: 10px auto;
+  .songInfoOverflow {
+    overflow: auto;
+  }
+  ol {
+    max-height: 200px;
+    min-width: 400px;
+  }
 
   li {
     cursor: pointer;

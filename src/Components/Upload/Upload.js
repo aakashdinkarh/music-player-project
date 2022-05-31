@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Wrapper, Content, Label, Input } from "./Upload.styles";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
-const Upload = ({ audioInfo, setAudioInfo, setAudioSrcs }) => {
+const Upload = ({ audioInfo, setAudioInfo, setAudioSrcs, removeSong }) => {
   const fileChange = (e) => {
     const files = e.target.files;
     if (!files || !files.length) return;
@@ -25,16 +25,16 @@ const Upload = ({ audioInfo, setAudioInfo, setAudioSrcs }) => {
     Object.values(files).map((file) => getAudio(file));
     e.target.value = null;
   };
-  //remove song from song list
-  const removeSong = (n) => {
-    if (n === -1) {
-      setAudioInfo([]);
-      setAudioSrcs([]);
-    } else {
-      setAudioInfo((prev) => prev.filter((audio, index) => index !== n));
-      setAudioSrcs((prev) => prev.filter((audio, index) => index !== n));
-    }
-  };
+  // //remove song from song list
+  // const removeSong = (n) => {
+  //   if (n === -1) {
+  //     setAudioInfo([]);
+  //     setAudioSrcs([]);
+  //   } else {
+  //     setAudioInfo((prev) => prev.filter((audio, index) => index !== n));
+  //     setAudioSrcs((prev) => prev.filter((audio, index) => index !== n));
+  //   }
+  // };
   //Breadcrumb element
   const breadcrumb_el = {
     Home: "/",

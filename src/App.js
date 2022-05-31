@@ -11,10 +11,19 @@ const App = () => {
   const [audioSrcs, setAudioSrcs] = useState([]);
   const [audioInfo, setAudioInfo] = useState([]);
 
-  // return <Upload audioInfo={audioInfo} setAudioInfo={setAudioInfo} setAudioSrcs={setAudioSrcs} />
+  //remove song from song list
+  const removeSong = (n) => {
+    if (n === -1) {
+      setAudioInfo([]);
+      setAudioSrcs([]);
+    } else {
+      setAudioInfo((prev) => prev.filter((audio, index) => index !== n));
+      setAudioSrcs((prev) => prev.filter((audio, index) => index !== n));
+    }
+  };
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL} >
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route
           path="/"
@@ -23,12 +32,19 @@ const App = () => {
               audioInfo={audioInfo}
               setAudioInfo={setAudioInfo}
               setAudioSrcs={setAudioSrcs}
+              removeSong={removeSong}
             />
           }
         ></Route>
         <Route
           path="/player"
-          element={<Player audioUrls={audioSrcs} audioInfo={audioInfo} />}
+          element={
+            <Player
+              audioUrls={audioSrcs}
+              audioInfo={audioInfo}
+              removeSong={removeSong}
+            />
+          }
         ></Route>
       </Routes>
       <GlobalStyle />

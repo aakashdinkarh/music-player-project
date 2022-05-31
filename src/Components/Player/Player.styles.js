@@ -30,6 +30,7 @@ export const AudioContent = styled.div`
       white-space: nowrap;
       text-overflow: ellipsis;
       max-width: 620px;
+      text-align: center;
     }
   }
 `;
@@ -52,7 +53,21 @@ export const SongInfo = styled.div`
   li {
     cursor: pointer;
     margin: 5px 0;
-    transition: all 0.3s;
+    position: relative;
+    //song text
+    div {
+      width: 95%;
+    }
+    //remove btn
+    span {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      cursor: pointer;
+      :hover {
+        color: var(--grey);
+      }
+    }
 
     :hover {
       font-weight: bold;

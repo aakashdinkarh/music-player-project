@@ -6,7 +6,7 @@ import Breadcrumb from "../Breadcrumb/Breadcrumb";
 import { Wrapper, Content } from "../Upload/Upload.styles";
 import { AudioContent, SongInfo, NotFound } from "./Player.styles";
 
-const Player = ({ audioUrls, audioInfo }) => {
+const Player = ({ audioUrls, audioInfo, removeSong }) => {
   const [index, setIndex] = useState(0);
   const [audioUrl, setAudio] = useState(audioUrls[index]);
 
@@ -64,7 +64,11 @@ const Player = ({ audioUrls, audioInfo }) => {
                         onClick={() => setIndex(ind)}
                         className={ind === index ? "active" : ""}
                       >
-                        {audio.name}
+                        <div>{audio.name}</div>
+                        <span
+                          className="fa-solid fa-remove"
+                          onClick={() => removeSong(ind)}
+                        ></span>
                       </li>
                     ))}
                   </ol>

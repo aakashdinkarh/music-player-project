@@ -45,7 +45,13 @@ const Upload = ({ audioInfo, setAudioInfo, setAudioSrcs }) => {
       <Breadcrumb breadcrumb_el={breadcrumb_el} />
       <Content>
         <h2>Welcome!!</h2>
-        <p>Click below 'Choose files' button to choose your audio file(s)...</p>
+        <p>
+          This is a music streaming app built using React. <br />
+          To get strated with this app, choose your audio files below then
+          upload them to start streaming
+          <br />
+          Click below 'Choose files' button to choose your audio file(s)...
+        </p>
         <div className="audioInput">
           <Label>
             <Input

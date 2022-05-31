@@ -15,6 +15,7 @@ export const AudioContent = styled.div`
     overflow: auto;
     height: 50%;
     max-height: 500px;
+    min-height: 300px;
     position: relative;
 
     .currentSong {
@@ -22,6 +23,13 @@ export const AudioContent = styled.div`
       position: absolute;
       left: 50%;
       bottom: 0px;
+      margin: 0;
+      padding: 5px 10px;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      max-width: 620px;
     }
   }
 `;

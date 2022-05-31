@@ -15,8 +15,8 @@ const Breadcrumb = ({ breadcrumb_el }) => (
           <span>/</span>
         </span>
       ) : (
-        <span key={ind}>
-          <b>{key}</b>
+        <span style={{ color: "var(--skyBlue)" }} key={ind}>
+          {key}
         </span>
       )
     )}

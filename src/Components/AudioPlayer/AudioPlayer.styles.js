@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Content = styled.div`
-  min-width: 400px;
+  min-width: 300px;
+  margin: 10px 0;
 
   /* custom design of range input */
   input[type="range"] {
@@ -56,6 +57,10 @@ export const Content = styled.div`
         width: 60px;
       }
     }
+
+    @media screen and (max-width: 550px) {
+      margin: 10px 2%;
+    }
   }
 `;
 
@@ -75,7 +80,7 @@ export const Button = styled.button`
     display: inline-block;
     width: max-content;
     position: absolute;
-    top: 40px;
+    bottom: -20px;
     left: -12px;
     font-weight: 600;
     font-size: initial;
@@ -87,7 +92,10 @@ export const Button = styled.button`
   }
 
   @media screen and (max-width: 550px) {
-    margin: 10px 2%;
+    margin: 10px 5px;
+    font-size: 75%;
+    width: 25px;
+    height: 25px;
   }
 `;
 

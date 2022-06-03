@@ -8,17 +8,14 @@ import Player from "./Components/Player/Player";
 // import Home from "./Components/Home";
 
 const App = () => {
-  const [audioSrcs, setAudioSrcs] = useState([]);
   const [audioInfo, setAudioInfo] = useState([]);
 
   //remove song from song list
   const removeSong = (n) => {
     if (n === -1) {
       setAudioInfo([]);
-      setAudioSrcs([]);
     } else {
       setAudioInfo((prev) => prev.filter((audio, index) => index !== n));
-      setAudioSrcs((prev) => prev.filter((audio, index) => index !== n));
     }
   };
 
@@ -31,7 +28,6 @@ const App = () => {
             <Upload
               audioInfo={audioInfo}
               setAudioInfo={setAudioInfo}
-              setAudioSrcs={setAudioSrcs}
               removeSong={removeSong}
             />
           }
@@ -40,7 +36,6 @@ const App = () => {
           path="/player"
           element={
             <Player
-              audioUrls={audioSrcs}
               audioInfo={audioInfo}
               removeSong={removeSong}
             />

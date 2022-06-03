@@ -4,20 +4,45 @@ import { Link } from "react-router-dom";
 import { Wrapper, Content, Label, Input } from "./Upload.styles";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
-const Upload = ({ audioInfo, setAudioInfo, setAudioSrcs, removeSong }) => {
+const Upload = ({ audioInfo, setAudioInfo, removeSong }) => {
   const fileChange = (e) => {
     const files = e.target.files;
     if (!files || !files.length) return;
 
+    const jsMedia = window.jsmediatags;
     function getAudio(file) {
+      const newEl = {}; //object to store information about the audio
+      jsMedia.read(file, {
+        onSuccess: (info) => {
+          newEl.album = info.tags.album;
+          newEl.genre = info.tags.genre;
+          newEl.artist = info.tags.artist;
+
+          //thumbnail picture from file
+          const data = info.tags.picture.data;
+          let base64string = "";
+          for (let i = 0; i < data.length; i++)
+            base64string += String.fromCharCode(data[i]);
+
+          const imgUrl = `data:${info.tags.picture.format};base64,${window.btoa(
+            base64string
+          )}`;
+          newEl.imgUrl = imgUrl;
+        },
+        onError: () => {
+          newEl.album = null;
+          newEl.genre = null;
+          newEl.artist = null;
+          newEl.imgUrl = null;
+        },
+      });
+
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        const newEl = {
-          name: file.name,
-          size: `${(file.size / 1024 / 1024).toFixed(2)}MB`,
-        };
-        setAudioSrcs((prev) => [...prev, reader.result]);
+        newEl.name = file.name;
+        newEl.size = `${(file.size / 1024 / 1024).toFixed(2)}MB`;
+        newEl.audioUrl = reader.result;
         setAudioInfo((prev) => [...prev, newEl]);
       };
     }
@@ -25,17 +50,7 @@ const Upload = ({ audioInfo, setAudioInfo, setAudioSrcs, removeSong }) => {
     Object.values(files).map((file) => getAudio(file));
     e.target.value = null;
   };
-  // //remove song from song list
-  // const removeSong = (n) => {
-  //   if (n === -1) {
-  //     setAudioInfo([]);
-  //     setAudioSrcs([]);
-  //   } else {
-  //     setAudioInfo((prev) => prev.filter((audio, index) => index !== n));
-  //     setAudioSrcs((prev) => prev.filter((audio, index) => index !== n));
-  //   }
-  // };
-  //Breadcrumb element
+  //breadcrumb element
   const breadcrumb_el = {
     Home: "/",
   };

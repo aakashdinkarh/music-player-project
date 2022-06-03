@@ -1,84 +1,80 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 //Components
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
+import SongInfo from "../SongInfo/SongInfo";
+import NotFound from "../NotFound/NotFound";
 import { Wrapper, Content } from "../Upload/Upload.styles";
-import { AudioContent, SongInfo, NotFound } from "./Player.styles";
+import { AudioContent } from "./Player.styles";
+//image
+import noImg from "../../logo512.png";
 
-const Player = ({ audioUrls, audioInfo, removeSong }) => {
+const Player = ({ audioInfo, removeSong }) => {
   const [index, setIndex] = useState(0);
-  const [audioUrl, setAudio] = useState(audioUrls[index]);
 
-  useEffect(() => {
-    setAudio(audioUrls[index]);
-  }, [index, audioUrls]);
-
-  const changeSong = (n) => {
-    setIndex((prev) => {
-      if (prev + n >= 0) return (prev + n) % audioUrls.length;
-      else return (prev + n + audioUrls.length) % audioUrls.length;
-    });
-  };
+  //breadcrumb element
   const breadcrumb_el = {
     Home: "/",
     Player: "/player",
   };
+  if (audioInfo && !audioInfo.length) {
+    return <NotFound />;
+  }
+  //extracting current song informations
+  const name = audioInfo[index].name;
+  const album = audioInfo[index].album;
+  const artist = audioInfo[index].artist;
+  const genre = audioInfo[index].genre;
+  const imgUrl = audioInfo[index].imgUrl;
+  const audioUrl = audioInfo[index].audioUrl;
+
+  //song Change
+  const changeSong = (n) => {
+    setIndex((prev) => {
+      if (prev + n >= 0) return (prev + n) % audioInfo.length;
+      else return (prev + n + audioInfo.length) % audioInfo.length;
+    });
+  };
 
   //return
   return (
-    <>
-      {!audioUrls.length && !audioInfo.length ? (
-        <NotFound>
-          <Breadcrumb breadcrumb_el={breadcrumb_el} />
-          Something went wrong, <br />
-          <p>
-            No audio found
-            <br />
-            <Link to="/">Click here to go back to choose songs...</Link>
-          </p>
-        </NotFound>
-      ) : (
-        <Wrapper>
-          <Breadcrumb breadcrumb_el={breadcrumb_el} />
-          <Content>
-            <AudioContent>
-              <div className="audioOverflow">
-                <AudioPlayer
-                  changeSong={changeSong}
-                  audioUrl={audioUrl}
-                  audioInfo={audioInfo}
-                  disabled="true"
-                />
+    <Wrapper>
+      <Breadcrumb breadcrumb_el={breadcrumb_el} />
+      <Content>
+        <AudioContent>
+          <div className="audioOverflow">
+            <div className="audioThumb">
+              <img
+                src={imgUrl === null ? noImg : imgUrl}
+                alt="audio-thumbnail"
+              />
+            </div>
+            <AudioPlayer
+              changeSong={changeSong}
+              audioUrl={audioUrl}
+              audioInfo={audioInfo}
+              disabled="true"
+            />
+            <div className="songDetailsContainer">
+              <div className="songDetails">
                 <p className="currentSong">
-                  Current Song: {audioInfo[index].name}
+                  Song: {name} <br />
+                  Artist: {artist === null ? <i>Not Found</i> : artist} <br />
+                  Album: {album === null ? <i>Not Found</i> : album} <br />
+                  Genre: {genre === null ? <i>Not Found</i> : genre}
                 </p>
               </div>
-              <SongInfo>
-                Songs:
-                <div className="songInfoOverflow">
-                  <ol>
-                    {audioInfo.map((audio, ind) => (
-                      <li
-                        key={ind}
-                        onClick={() => setIndex(ind)}
-                        className={ind === index ? "active" : ""}
-                      >
-                        <div>{audio.name}</div>
-                        <span
-                          className="fa-solid fa-remove"
-                          onClick={() => removeSong(ind)}
-                        ></span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </SongInfo>
-            </AudioContent>
-          </Content>
-        </Wrapper>
-      )}
-    </>
+            </div>
+          </div>
+          <SongInfo
+            audioInfo={audioInfo}
+            setIndex={setIndex}
+            index={index}
+            removeSong={removeSong}
+          />
+        </AudioContent>
+      </Content>
+    </Wrapper>
   );
 };
 

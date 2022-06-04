@@ -1,28 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Wrapper, Content, Label, Input } from "./Upload.styles";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
+import Spinner from "../Spinner/Spinner";
 
 const Upload = ({ audioInfo, setAudioInfo, removeSong }) => {
+  const [isUploading, setIsUploading] = useState(false);
   const setter = (val) => {
     return val === undefined ? null : val;
   };
 
   const fileChange = (e) => {
+    setIsUploading(true);
     const files = e.target.files;
     if (!files || !files.length) return;
 
     const jsMedia = window.jsmediatags;
-    function getAudio(file) {
-      let newEl = {
-        name: null,
-        size: null,
-        audioUrl: null,
-        album: null,
-        artist: null,
-        imgUrl: null,
-      }; //object to store information about the audio
+
+    const extractMetaData = (file, newEl) => {
       jsMedia.read(file, {
         onSuccess: (info) => {
           try {
@@ -39,7 +35,7 @@ const Upload = ({ audioInfo, setAudioInfo, removeSong }) => {
               info.tags.picture.format
             };base64,${window.btoa(base64string)}`;
 
-            newEl.imgUrl = imgUrl;
+            newEl.imgUrl = setter(imgUrl);
           } catch (e) {
             console.log(e);
           }
@@ -48,6 +44,20 @@ const Upload = ({ audioInfo, setAudioInfo, removeSong }) => {
           console.log("cannot find metaData of song", e);
         },
       });
+    };
+
+    function getAudio(file) {
+      let newEl = {
+        //object to store information about the audio
+        name: null,
+        size: null,
+        audioUrl: null,
+        album: null,
+        artist: null,
+        imgUrl: null,
+      };
+
+      extractMetaData(file, newEl);
 
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -61,6 +71,7 @@ const Upload = ({ audioInfo, setAudioInfo, removeSong }) => {
 
     Object.values(files).map((file) => getAudio(file));
     e.target.value = null;
+    setIsUploading(false);
   };
   //breadcrumb element
   const breadcrumb_el = {
@@ -74,8 +85,8 @@ const Upload = ({ audioInfo, setAudioInfo, removeSong }) => {
         <h2>Welcome!!</h2>
         <p>
           This is a music streaming app built using React. <br />
-          To get strated with this app, choose your audio files below then
-          upload them to start streaming
+          To get strated with this app, choose your audio files below and then
+          start streaming
           <br />
           Click below 'Choose files' button to choose your audio file(s)...
         </p>
@@ -95,6 +106,7 @@ const Upload = ({ audioInfo, setAudioInfo, removeSong }) => {
         <div className="songListContainer">
           Songs choosen :
           <br />
+          {isUploading ? <Spinner /> : null}
           {audioInfo.length ? (
             <span onClick={() => removeSong(-1)} className="removeAll">
               Clear All
@@ -121,9 +133,10 @@ const Upload = ({ audioInfo, setAudioInfo, removeSong }) => {
             </div>
           )}
         </div>
+
         {audioInfo.length ? (
           <Link to={audioInfo.length ? "/player" : "/"}>
-            <button className="upload-btn">Upload</button>
+            <button className="upload-btn">Stream Now</button>
           </Link>
         ) : null}
       </Content>

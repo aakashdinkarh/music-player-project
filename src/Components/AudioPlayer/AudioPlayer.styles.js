@@ -98,21 +98,3 @@ export const Button = styled.button`
     height: 25px;
   }
 `;
-
-export const Spinner = styled.div`
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  border: 5px solid black;
-  border-color: var(--darkGrey) var(--grey) var(--grey) var(--grey);
-  animation: spin 1s linear infinite;
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-`;

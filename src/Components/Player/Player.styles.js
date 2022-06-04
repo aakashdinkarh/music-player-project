@@ -29,14 +29,15 @@ export const AudioContent = styled.div`
     .songDetailsContainer {
       border: 1px solid var(--medGrey);
       overflow: auto;
+
       .songDetails {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
         min-width: 400px;
-        max-width: 620px;
+        /* max-width: 620px; */
 
         .currentSong {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
           margin: 10px 5%;
           text-align: left;
         }

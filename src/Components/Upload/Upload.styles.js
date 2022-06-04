@@ -84,6 +84,9 @@ export const Content = styled.div`
       margin: 5px 0;
       position: relative;
 
+      .songName {
+        margin-right: 20px;
+      }
       span {
         position: absolute;
         right: 5px;

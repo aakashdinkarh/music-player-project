@@ -7,11 +7,13 @@ import NotFound from "../NotFound/NotFound";
 import { Wrapper, Content } from "../Upload/Upload.styles";
 import { AudioContent } from "./Player.styles";
 //image
-import noImg from "../../logo512.png";
+import noImg from "../../download.png";
+//Proptypes
+// import PropTypes from "prop-types";
 
 const Player = ({ audioInfo, removeSong }) => {
   const [index, setIndex] = useState(0);
-
+  console.log(audioInfo);
   //breadcrumb element
   const breadcrumb_el = {
     Home: "/",
@@ -24,7 +26,6 @@ const Player = ({ audioInfo, removeSong }) => {
   const name = audioInfo[index].name;
   const album = audioInfo[index].album;
   const artist = audioInfo[index].artist;
-  const genre = audioInfo[index].genre;
   const imgUrl = audioInfo[index].imgUrl;
   const audioUrl = audioInfo[index].audioUrl;
 
@@ -44,6 +45,7 @@ const Player = ({ audioInfo, removeSong }) => {
         <AudioContent>
           <div className="audioOverflow">
             <div className="audioThumb">
+              {/* <img src={require("./../../download.png")} alt="trying-img" /> */}
               <img
                 src={imgUrl === null ? noImg : imgUrl}
                 alt="audio-thumbnail"
@@ -61,7 +63,6 @@ const Player = ({ audioInfo, removeSong }) => {
                   Song: {name} <br />
                   Artist: {artist === null ? <i>Not Found</i> : artist} <br />
                   Album: {album === null ? <i>Not Found</i> : album} <br />
-                  Genre: {genre === null ? <i>Not Found</i> : genre}
                 </p>
               </div>
             </div>
@@ -77,5 +78,18 @@ const Player = ({ audioInfo, removeSong }) => {
     </Wrapper>
   );
 };
+
+// Player.proptypes = {
+//   audioInfo: PropTypes.shape({
+//     name: PropTypes.string,
+//     artist: PropTypes.string,
+//     album: PropTypes.string,
+//     size: PropTypes.number,
+//     genre: PropTypes.string,
+//     audioUrl: PropTypes.string,
+//     imgUrl: PropTypes.string,
+//   }),
+//   removeSong: PropTypes.func,
+// };
 
 export default Player;

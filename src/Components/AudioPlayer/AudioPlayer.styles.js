@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Content = styled.div`
-  min-width: 300px;
+  /* min-width: 300px; */
   margin: 10px 0;
 
   /* custom design of range input */

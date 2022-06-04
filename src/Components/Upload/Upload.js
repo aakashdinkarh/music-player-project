@@ -5,35 +5,47 @@ import { Wrapper, Content, Label, Input } from "./Upload.styles";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
 const Upload = ({ audioInfo, setAudioInfo, removeSong }) => {
+  const setter = (val) => {
+    return val === undefined ? null : val;
+  };
+
   const fileChange = (e) => {
     const files = e.target.files;
     if (!files || !files.length) return;
 
     const jsMedia = window.jsmediatags;
     function getAudio(file) {
-      const newEl = {}; //object to store information about the audio
+      let newEl = {
+        name: null,
+        size: null,
+        audioUrl: null,
+        album: null,
+        artist: null,
+        imgUrl: null,
+      }; //object to store information about the audio
       jsMedia.read(file, {
         onSuccess: (info) => {
-          newEl.album = info.tags.album;
-          newEl.genre = info.tags.genre;
-          newEl.artist = info.tags.artist;
+          try {
+            newEl.album = setter(info.tags.album);
+            newEl.artist = setter(info.tags.artist);
 
-          //thumbnail picture from file
-          const data = info.tags.picture.data;
-          let base64string = "";
-          for (let i = 0; i < data.length; i++)
-            base64string += String.fromCharCode(data[i]);
+            //thumbnail picture from file
+            const data = info.tags.picture.data;
+            let base64string = "";
+            for (let i = 0; i < data.length; i++)
+              base64string += String.fromCharCode(data[i]);
 
-          const imgUrl = `data:${info.tags.picture.format};base64,${window.btoa(
-            base64string
-          )}`;
-          newEl.imgUrl = imgUrl;
+            const imgUrl = `data:${
+              info.tags.picture.format
+            };base64,${window.btoa(base64string)}`;
+
+            newEl.imgUrl = imgUrl;
+          } catch (e) {
+            console.log(e);
+          }
         },
-        onError: () => {
-          newEl.album = null;
-          newEl.genre = null;
-          newEl.artist = null;
-          newEl.imgUrl = null;
+        onError: (e) => {
+          console.log("cannot find metaData of song", e);
         },
       });
 

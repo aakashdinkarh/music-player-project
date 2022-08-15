@@ -12,8 +12,10 @@ const App = () => {
   //remove song from song list
   const removeSong = (n) => {
     if (n === -1) {
+      //remove all songs
       setAudioInfo([]);
     } else {
+      //remove specific song with index n
       setAudioInfo((prev) => prev.filter((audio, index) => index !== n));
     }
   };

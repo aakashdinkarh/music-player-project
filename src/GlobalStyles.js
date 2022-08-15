@@ -47,4 +47,29 @@ export const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar-corner {
     display: none;
   }
+  .tempAlert {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 0px;
+    width: 50%;
+    text-align: center;
+    transform: translateX(-50%);
+    background-color: white;
+    border-radius: 5px;
+    transition: all 0.4s;
+    animation: tempAlertAnimate 4s ease-in-out;
+    box-shadow: 0 0 5px white;
+    overflow: hidden;
+  }
+  @keyframes tempAlertAnimate {
+    0%, 100% {
+      height: 0;
+      top: 0;
+    }
+    10%, 90% {
+      height: 100px;
+      top: 1%;
+    }
+  }
 `;

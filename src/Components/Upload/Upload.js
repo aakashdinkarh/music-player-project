@@ -7,7 +7,9 @@ import Spinner from "../Spinner/Spinner";
 
 const Upload = ({ audioInfo, setAudioInfo, removeSong }) => {
   const [isUploading, setIsUploading] = useState(false);
+
   const setter = (val) => {
+    //set metadata info about the song (album, artist, imgUrl)
     return val === undefined ? null : val;
   };
 
@@ -31,13 +33,14 @@ const Upload = ({ audioInfo, setAudioInfo, removeSong }) => {
             for (let i = 0; i < data.length; i++)
               base64string += String.fromCharCode(data[i]);
 
+            //base64 string of audio file
             const imgUrl = `data:${
               info.tags.picture.format
             };base64,${window.btoa(base64string)}`;
 
             newEl.imgUrl = setter(imgUrl);
           } catch (e) {
-            console.log(e);
+            console.log("could not set all meta datas", e);
           }
         },
         onError: (e) => {
@@ -47,6 +50,18 @@ const Upload = ({ audioInfo, setAudioInfo, removeSong }) => {
     };
 
     function getAudio(file) {
+      const pattern = /^audio\//;
+      if (!pattern.test(file.type)) {
+        //show temporary alert type box if file type audio was not found
+        let el = document.createElement("div");
+        el.setAttribute("class", "tempAlert");
+        el.innerHTML = `Could not add some file(s)`;
+        setTimeout(() => {
+          el.parentNode.removeChild(el);
+        }, 4000);
+        document.body.appendChild(el);
+        return;
+      }
       let newEl = {
         //object to store information about the audio
         name: null,
@@ -69,7 +84,7 @@ const Upload = ({ audioInfo, setAudioInfo, removeSong }) => {
       };
     }
 
-    Object.values(files).map((file) => getAudio(file));
+    Object.values(files).forEach((file) => getAudio(file));
     e.target.value = null;
     setIsUploading(false);
   };

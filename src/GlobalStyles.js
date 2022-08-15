@@ -53,6 +53,7 @@ export const GlobalStyle = createGlobalStyle`
     left: 50%;
     height: 0px;
     width: 50%;
+    line-height: 50px;
     text-align: center;
     transform: translateX(-50%);
     background-color: white;
@@ -68,8 +69,8 @@ export const GlobalStyle = createGlobalStyle`
       top: 0;
     }
     10%, 90% {
-      height: 100px;
-      top: 1%;
+      height: 50px;
+      top: 3%;
     }
   }
 `;

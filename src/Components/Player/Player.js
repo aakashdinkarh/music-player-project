@@ -8,8 +8,6 @@ import { Wrapper, Content } from "../Upload/Upload.styles";
 import { AudioContent } from "./Player.styles";
 //image
 import noImg from "../../download.png";
-//Proptypes
-// import PropTypes from "prop-types";
 
 const Player = ({ audioInfo, removeSong }) => {
   const [index, setIndex] = useState(0);
@@ -78,18 +76,5 @@ const Player = ({ audioInfo, removeSong }) => {
     </Wrapper>
   );
 };
-
-// Player.proptypes = {
-//   audioInfo: PropTypes.shape({
-//     name: PropTypes.string,
-//     artist: PropTypes.string,
-//     album: PropTypes.string,
-//     size: PropTypes.number,
-//     genre: PropTypes.string,
-//     audioUrl: PropTypes.string,
-//     imgUrl: PropTypes.string,
-//   }),
-//   removeSong: PropTypes.func,
-// };
 
 export default Player;

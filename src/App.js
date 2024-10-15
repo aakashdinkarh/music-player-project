@@ -5,6 +5,7 @@ import { GlobalStyle } from "./GlobalStyles";
 //Components
 import Upload from "./Components/Upload/Upload";
 import Player from "./Components/Player/Player";
+import NotFound from "./Components/NotFound/NotFound";
 
 const App = () => {
   const [audioInfo, setAudioInfo] = useState([]);
@@ -37,6 +38,7 @@ const App = () => {
           path="/player"
           element={<Player audioInfo={audioInfo} removeSong={removeSong} />}
         ></Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <GlobalStyle />
     </BrowserRouter>

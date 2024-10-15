@@ -23,30 +23,32 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     margin: 0;
     padding: 0;
+    background: var(--darkGrey);
+    color: var(--white);
   }
   div#root {
     height: 100%;
     overflow: auto;
   }
+  /* scrollbar -- start -- */
+  /* Scrollbar for WebKit Browsers */
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--white);
-    box-shadow: 0 0 5px #aaa inset;
-    border-radius: 5px;
+    background: transparent;
   }
   ::-webkit-scrollbar-thumb {
     background: #aaa;
-    border-radius: 5px;
+    border-radius: 10px;
   }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+  /* Scrollbar for Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #aaa transparent;
   }
-  ::-webkit-scrollbar-corner {
-    display: none;
-  }
+  /* scrollbar -- end -- */
   .tempAlert {
     position: absolute;
     top: 0;
